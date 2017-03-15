@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/jntakpe/digibank-properties
+          username: digibankproject
+          password: digipass123
+server:
+  port: ${config.uri:8888}
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  security:
+    enabled: false
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    stream:
+      kafka:
+        binder:
+          zkNodes: kafka
+          brokers: kafka
+eureka:
+  instance:
+    hostname: config-server
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://registry-server:8761/eureka/
