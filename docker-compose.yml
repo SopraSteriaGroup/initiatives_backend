@@ -6,60 +6,34 @@ services:
       - 2181:2181
       - 9092:9092
   registry-server:
-    image: dep/registry-server
+    image: ssg/registry-server
     ports:
       - 8761:8761
   config-server:
-    image: dep/config-server
+    image: ssg/config-server
     ports:
       - 8888:8888
     links:
       - kafka
       - registry-server
-  connector-core-banking-a:
-    image: dep/connector-core-banking-a
-    ports:
-      - 8380:8380
-    links:
-      - kafka
-      - registry-server
-      - config-server
   auth-service:
-    image: dep/auth-service
+    image: ssg/auth-service
     ports:
       - 9081:9081
     links:
       - kafka
       - registry-server
       - config-server
-  account-viewing-service:
-    image: dep/account-viewing-service
-    ports:
-      - 8180:8180
-    links:
-      - kafka
-      - registry-server
-      - config-server
-      - connector-core-banking-a
-  account-transaction-service:
-    image: dep/account-transaction-service
-    ports:
-      - 8280:8280
-    links:
-      - kafka
-      - registry-server
-      - config-server
   proxy-server:
-    image: dep/proxy-server
+    image: ssg/proxy-server
     ports:
       - 9080:9080
     links:
       - kafka
       - registry-server
       - config-server
-      - account-viewing-service
   dashboard-hystrix:
-    image: dep/dashboard-hystrix
+    image: ssg/dashboard-hystrix
     ports:
       - 6161:6161
       - 8989:8989
@@ -67,10 +41,8 @@ services:
       - kafka
       - registry-server
       - config-server
-      - account-transaction-service
-      - account-viewing-service
   dashboard-zipkin:
-    image: dep/dashboard-zipkin
+    image: ssg/dashboard-zipkin
     ports:
       - 6262:6262
     links:

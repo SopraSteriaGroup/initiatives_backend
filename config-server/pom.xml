@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <organization.name>dep</organization.name>
+        <organization.name>ssg</organization.name>
         <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
     </properties>
 
