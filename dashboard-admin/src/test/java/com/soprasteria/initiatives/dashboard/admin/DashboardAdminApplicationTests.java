@@ -1,4 +1,4 @@
-package com.soprasteria.initiatives.adminui;
+package com.soprasteria.initiatives.dashboard.admin;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class AdminUiApplicationTests {
+public class DashboardAdminApplicationTests {
 
     @Test
     public void contextLoads() {

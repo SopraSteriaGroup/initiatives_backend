@@ -3,7 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.soprasteria.initiatives</groupId>
+    <parent>
+        <groupId>com.soprasteria.initiatives</groupId>
+        <artifactId>initiatives-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
     <artifactId>commons</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -17,9 +22,6 @@
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-
-        <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
-        <spring-cloud.version>Dalston.BUILD-SNAPSHOT</spring-cloud.version>
 
         <swagger2.version>2.6.1</swagger2.version>
         <commons-lang3.version>3.5</commons-lang3.version>
@@ -41,21 +43,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <dependency>
                 <groupId>io.reactivex</groupId>
                 <artifactId>rxjava</artifactId>
@@ -98,29 +85,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>jcenter-snapshots</id>
-            <name>jcenter</name>
-            <url>https://jcenter.bintray.com/</url>
-        </repository>
-    </repositories>
 
 </project>

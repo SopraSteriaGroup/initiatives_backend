@@ -1,4 +1,4 @@
-package com.soprasteria.initiatives.adminui;
+package com.soprasteria.initiatives.dashboard.admin;
 
 import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
@@ -13,10 +13,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableAdminServer
 @EnableDiscoveryClient
 @SpringBootApplication
-public class AdminUiApplication {
+public class DashboardAdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AdminUiApplication.class, args);
+        SpringApplication.run(DashboardAdminApplication.class, args);
     }
 
 }

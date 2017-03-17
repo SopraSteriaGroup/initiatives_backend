@@ -1,6 +1,6 @@
 spring:
   application:
-    name: admin-ui
+    name: dashboard-admin
   cloud:
     config:
       uri: ${config.uri:http://localhost:8888}
