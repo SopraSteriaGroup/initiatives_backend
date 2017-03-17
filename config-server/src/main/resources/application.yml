@@ -3,9 +3,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/jntakpe/digibank-properties
-          username: digibankproject
-          password: digipass123
+          uri: https://github.com/jntakpe/initiatives-properties
+          username: initiativesproject
+          password: initiativespass123
 server:
   port: ${config.uri:8888}
 eureka:
