@@ -37,6 +37,8 @@
         <module>dashboard-admin</module>
         <module>dashboard-hystrix</module>
         <module>dashboard-zipkin</module>
+        <module>sopridees-service</module>
+        <module>user-service</module>
     </modules>
 
     <dependencyManagement>
