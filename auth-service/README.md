@@ -31,14 +31,14 @@ Call : `http://localhost:9081/oauth/token` using method **POST** and provide (**
 
 Request body must contain the following parameters :
 
-| Param      | Value         |
-|------------|---------------|
-| username   | YOUR_USERNAME |
-| password   | YOUR_PASSWORD |
-| grant_type | password      |
-| scope      | openid        |
-| client_id  | digibank      |
-| secret     | digibanksecret|
+| Param      | Value                           |
+|------------|---------------------------------|
+| username   | YOUR_USERNAME                   |
+| password   | YOUR_PASSWORD                   |
+| grant_type | password                        |
+| scope      | openid                          |
+| client_id  | initiatives_app                 |
+| secret     | initiatives_super_secure_secret |
 
 Like that : ![postman_tokengen](https://cloud.githubusercontent.com/assets/3605418/23027531/d350d4fc-f464-11e6-9a76-8fa2d21761f6.png)
 
