@@ -240,4 +240,11 @@ l'ensemble des latences dans un store et fourni une interface pour debugger invi
 
 ###### Apache Kafka
 
-(TODO)
+*Apache Kafka* est un système de messagerie distribué, en mode publish-subscribe, persistant les données qu’il reçoit, conçu pour facilement
+ monter en charge et supporter des débits de données très importants.
+ 
+Kafka conserve les données qu’il reçoit dans des **topics**, correspondant à des catégories de données.
+On nomme les systèmes qui publient des données dans des topics Kafka des **producers**.
+Les **consumers**, sont les systèmes qui vont lire les données des topics.
+
+![Kafka architecture](https://cloud.githubusercontent.com/assets/3605418/24073505/a2f684cc-0bf8-11e7-98d7-71dc0953676b.png)
