@@ -3,7 +3,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/jntakpe/initiatives-properties
+          uri: https://github.com/SopraSteriaGroup/initiatives_properties
           username: initiativesproject
           password: initiativespass123
 server:
