@@ -21,7 +21,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private static final String DEFAULT_INCLUDE_PATTERN = "/.*";
+    private static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
 
     private final ApiProperties apiProperties;
 
