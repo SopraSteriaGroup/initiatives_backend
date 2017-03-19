@@ -39,6 +39,7 @@
         <module>tracing</module>
         <module>error</module>
         <module>contract</module>
+        <module>monitor</module>
     </modules>
 
     <dependencyManagement>
