@@ -43,9 +43,9 @@ INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user
 INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='ocoulibaly'), (SELECT id FROM authority WHERE name='ADMIN'));
 INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='mmarquez'), (SELECT id FROM authority WHERE name='USER'));
 INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='mmarquez'), (SELECT id FROM authority WHERE name='ADMIN'));
+INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='tchoteau'), (SELECT id FROM authority WHERE name='USER'));
 INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='tchoteau'), (SELECT id FROM authority WHERE name='ADMIN'));
-INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='tchoteau'), (SELECT id FROM authority WHERE name='ADMIN'));
-INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='eparisot'), (SELECT id FROM authority WHERE name='ADMIN'));
+INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='eparisot'), (SELECT id FROM authority WHERE name='USER'));
 INSERT INTO user_authorities(user_id, authority_id) VALUES ((SELECT id FROM user WHERE username='eparisot'), (SELECT id FROM authority WHERE name='ADMIN'));
 
 --@formatter:on
