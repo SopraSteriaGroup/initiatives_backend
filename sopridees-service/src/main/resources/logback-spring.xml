@@ -50,6 +50,8 @@
     <logger name="org.apache.kafka.clients.producer.ProducerConfig" level="ERROR"/>
     <logger name="com.netflix.config.sources.URLConfigurationSource" level="ERROR"/>
     <logger name="org.springframework.context.annotation.ConfigurationClassPostProcessor" level="ERROR"/>
+    <logger name="org.springframework.cloud.config.server.environment.NativeEnvironmentRepository" level="INFO"/>
+    <logger name="org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer" level="INFO"/>
 
     <root level="TRACE">
         <appender-ref ref="console"/>
