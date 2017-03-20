@@ -12,6 +12,7 @@ import java.util.Map;
  * Custom converter to handle additional JWT fields
  *
  * @author jntakpe
+ * @author cegiraud
  * @see AccessTokenConverter
  */
 public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
@@ -21,7 +22,8 @@ public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
         Map<String, Object> response = new HashMap<>();
         response.putAll(super.convertAccessToken(token, authentication));
         CustomUser user = getCustomUserFromAuthentication(authentication);
-        response.put("customField", user.toString());
+        response.put("firstName", user.getFirstName());
+        response.put("lastName", user.getLastName());
         return response;
     }
 

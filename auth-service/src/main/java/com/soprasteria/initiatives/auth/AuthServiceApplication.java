@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
  * Class starting auth-service application
  *
  * @author jntakpe
+ * @author cegiraud
  */
 @EnableDiscoveryClient
 @SpringBootApplication

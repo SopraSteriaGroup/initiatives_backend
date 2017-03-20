@@ -25,7 +25,6 @@ public class SwaggerConfig {
 
     private final ApiProperties apiProperties;
 
-    @Autowired
     public SwaggerConfig(ApiProperties apiProperties) {
         this.apiProperties = apiProperties;
     }

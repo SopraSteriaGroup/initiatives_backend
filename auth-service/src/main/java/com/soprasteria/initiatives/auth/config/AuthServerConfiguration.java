@@ -43,7 +43,6 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
 
     private final UserDetailsService userDetailsService;
 
-    @Autowired
     public AuthServerConfiguration(AuthenticationManager authenticationManager,
                                    CertProperties certProperties,
                                    OAuth2ClientProperties oAuth2ClientProperties,
@@ -79,7 +78,7 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
         endpoints
                 .tokenStore(tokenStore())
                 .accessTokenConverter(jwtAccessTokenConverter())
-                .authenticationManager(this.authenticationManager)
+                .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }
 
