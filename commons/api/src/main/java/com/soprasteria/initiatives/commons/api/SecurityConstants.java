@@ -11,6 +11,10 @@ public final class SecurityConstants {
 
     public static final String[] SWAGGER_PATHS = {"/v2/api-docs/**", "/swagger-resources/configuration/ui", "/swagger-ui/index.html"};
 
+    /**
+     * Utiliser {@link org.springframework.http.HttpHeaders#AUTHORIZATION}
+     */
+    @Deprecated
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     static final String RACINES_TOKEN_KEY = "racines";
