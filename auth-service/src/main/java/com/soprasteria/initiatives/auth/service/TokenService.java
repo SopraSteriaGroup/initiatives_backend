@@ -1,6 +1,6 @@
 package com.soprasteria.initiatives.auth.service;
 
-import com.netflix.ribbon.proxy.annotation.Http;
+import com.soprasteria.initiatives.auth.utils.SSOProvider;
 import com.soprasteria.initiatives.auth.utils.UrlUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -52,26 +52,28 @@ public class TokenService {
         this.oAuth2ClientProperties = oAuth2ClientProperties;
     }
 
-    public ResponseEntity<OAuth2AccessToken> authorize(String accessToken, String requestUrl) {
+    public ResponseEntity<OAuth2AccessToken> authorize(String accessToken, SSOProvider ssoProvider, String requestUrl) {
         try {
-            return new RestTemplate().postForEntity(url(accessToken, requestUrl), new HttpEntity(initializeHeaders()), OAuth2AccessToken.class);
+            String url = url(accessToken, ssoProvider, requestUrl);
+            return new RestTemplate().postForEntity(url, new HttpEntity(initializeHeaders()), OAuth2AccessToken.class);
         } catch (HttpClientErrorException e) {
             LOGGER.warn("Unable to obtain token {}", e);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
-    private String url(String accessToken, String requestUrl) {
+    private String url(String accessToken, SSOProvider ssoProvider, String requestUrl) {
         String serverAddress;
         if (requestUrl.startsWith(TEST_URL)) {
             serverAddress = DEFAULT_URL + this.environment.getProperty("server.port");
         } else {
             serverAddress = UrlUtils.getServerAdressFromRequest(requestUrl);
         }
-        return UriComponentsBuilder.fromHttpUrl(serverAddress + OAUTH2_TOKEN_URL).queryParams(requestParams(accessToken)).toUriString();
+        return UriComponentsBuilder.fromHttpUrl(serverAddress + OAUTH2_TOKEN_URL)
+                .queryParams(requestParams(accessToken, ssoProvider)).toUriString();
     }
 
-    private MultiValueMap<String, String> requestParams(String authorization) {
+    private MultiValueMap<String, String> requestParams(String authorization, SSOProvider ssoProvider) {
         MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
         requestParams.add("username", authorization);
         requestParams.add("password", BLANK_WORD);
@@ -79,6 +81,7 @@ public class TokenService {
         requestParams.add(OAuth2Utils.SCOPE, "openid");
         requestParams.add(OAuth2Utils.CLIENT_ID, oAuth2ClientProperties.getClientId());
         requestParams.add("secret", oAuth2ClientProperties.getClientSecret());
+        requestParams.add("provider", ssoProvider.toString());
         return requestParams;
     }
 

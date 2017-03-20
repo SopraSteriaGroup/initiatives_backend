@@ -2,14 +2,12 @@ package com.soprasteria.initiatives.auth.config;
 
 import com.soprasteria.initiatives.auth.config.properties.CertProperties;
 import com.soprasteria.initiatives.auth.config.properties.TokenProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -41,20 +39,16 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
 
     private final ResourceLoader resourceLoader;
 
-    private final UserDetailsService userDetailsService;
-
     public AuthServerConfiguration(AuthenticationManager authenticationManager,
                                    CertProperties certProperties,
                                    OAuth2ClientProperties oAuth2ClientProperties,
                                    TokenProperties tokenProperties,
-                                   ResourceLoader resourceLoader,
-                                   UserDetailsService userDetailsService) {
+                                   ResourceLoader resourceLoader) {
         this.authenticationManager = authenticationManager;
         this.certProperties = certProperties;
         this.oAuth2ClientProperties = oAuth2ClientProperties;
         this.tokenProperties = tokenProperties;
         this.resourceLoader = resourceLoader;
-        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -78,8 +72,7 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
         endpoints
                 .tokenStore(tokenStore())
                 .accessTokenConverter(jwtAccessTokenConverter())
-                .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService);
+                .authenticationManager(authenticationManager);
     }
 
     @Override
