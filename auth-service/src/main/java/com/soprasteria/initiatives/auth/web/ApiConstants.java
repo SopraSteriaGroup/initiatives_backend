@@ -6,10 +6,10 @@ package com.soprasteria.initiatives.auth.web;
  * @author jntakpe
  * @author cegiraud
  */
-class ApiConstants {
+public class ApiConstants {
 
     private static final String API = "/api";
 
-    static final String TOKENS = API + "/tokens";
+    public static final String TOKENS = API + "/tokens";
 
 }

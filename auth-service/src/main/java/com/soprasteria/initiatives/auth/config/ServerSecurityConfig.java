@@ -1,7 +1,7 @@
 package com.soprasteria.initiatives.auth.config;
 
+import com.soprasteria.initiatives.auth.web.ApiConstants;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -25,14 +25,15 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().permitAll().and()
-                .formLogin().permitAll();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .authenticationProvider(ssoAuthenticationProvider);
+                .antMatchers(ApiConstants.TOKENS).permitAll()
+                .antMatchers("/v2/api-docs/**").permitAll()
+                .antMatchers("/configuration/security").permitAll()
+                .antMatchers("/configuration/ui").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .anyRequest().authenticated()
+        ;
     }
 
 }
