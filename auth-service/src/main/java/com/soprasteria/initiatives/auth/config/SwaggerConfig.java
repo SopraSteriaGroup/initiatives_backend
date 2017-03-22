@@ -1,9 +1,10 @@
 package com.soprasteria.initiatives.auth.config;
 
 import com.soprasteria.initiatives.auth.config.properties.ApiProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.soprasteria.initiatives.commons.api.ProfileConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -19,6 +20,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
  */
 @Configuration
 @EnableSwagger2
+@Profile(ProfileConstants.NOT_TEST_PROFILE)
 public class SwaggerConfig {
 
     private static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";

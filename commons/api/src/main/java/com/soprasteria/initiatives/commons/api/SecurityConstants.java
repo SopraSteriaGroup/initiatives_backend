@@ -1,5 +1,7 @@
 package com.soprasteria.initiatives.commons.api;
 
+import org.springframework.http.HttpHeaders;
+
 /**
  * Constants related to security
  *
@@ -9,17 +11,13 @@ public final class SecurityConstants {
 
     public static final String SECURED_API_PATH = "/api/**";
 
-    public static final String[] SWAGGER_PATHS = {"/v2/api-docs/**", "/swagger-resources/configuration/ui", "/swagger-ui/index.html"};
+    public static final String[] SWAGGER_PATHS = {"/v2/api-docs/**", "/swagger-resources/**", "/swagger-ui.html"};
 
-    /**
-     * Utiliser {@link org.springframework.http.HttpHeaders#AUTHORIZATION}
-     */
-    @Deprecated
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String AUTHORIZATION_HEADER = HttpHeaders.AUTHORIZATION;
 
-    static final String RACINES_TOKEN_KEY = "racines";
+    public static final String RACINES_TOKEN_KEY = "racines";
 
-    static final String BEARER_PREFIX = "Bearer ";
+    public static final String BEARER_PREFIX = "Bearer ";
 
-    static final String TOKEN_KEY = "token";
+    public static final String TOKEN_KEY = "token";
 }

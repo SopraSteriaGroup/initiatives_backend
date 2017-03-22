@@ -1,7 +1,6 @@
 package com.soprasteria.initiatives.auth.utils;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 
@@ -10,7 +9,8 @@ import java.util.Arrays;
  */
 public enum SSOProvider {
     GOOGLE("google"),
-    LINKEDIN("linkedin");
+    LINKEDIN("linkedin"),
+    FAKE_SSO("fakesso");
 
     private String ssoProviderName;
 
@@ -26,7 +26,8 @@ public enum SSOProvider {
     @JsonCreator
     public static SSOProvider fromString(String ssoProviderName) {
         return Arrays.stream(SSOProvider.class.getEnumConstants())
-                .filter(s -> StringUtils.equalsIgnoreCase(s.toString(), ssoProviderName))
+                .filter(s -> s.ssoProviderName.equalsIgnoreCase(ssoProviderName)
+                        || s.toString().equalsIgnoreCase(ssoProviderName))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }

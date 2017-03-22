@@ -12,4 +12,6 @@ public class ApiConstants {
 
     public static final String TOKENS = API + "/tokens";
 
+    public static final String FAKE_SSO = "/fakesso/me";
+
 }
