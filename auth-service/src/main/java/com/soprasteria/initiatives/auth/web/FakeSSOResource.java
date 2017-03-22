@@ -32,7 +32,7 @@ public class FakeSSOResource {
      * - accessToken = <token réccupéré>
      * - ssoProdider = fakesso
      *
-     * @param username  : le username souhaité.
+     * @param idsso  : l'idsso souhaité.
      * @param firstName : le prénom de l'utilisateur
      * @param lastName  : le nom de l'utiliateur
      * @return l'accessToken
@@ -43,9 +43,9 @@ public class FakeSSOResource {
                     "* ssoProdider = fakesso")
     @GetMapping(ApiConstants.TOKENS)
     @ResponseBody
-    public String createAccessToken(@RequestParam String username, @RequestParam String firstName, @RequestParam String lastName) throws Exception {
+    public String createAccessToken(@RequestParam String idsso, @RequestParam String firstName, @RequestParam String lastName) throws Exception {
         JSONObject user = new JSONObject();
-        user.put("id", username);
+        user.put("id", idsso);
         user.put("firstName", firstName);
         user.put("lastName", lastName);
         return Base64.getUrlEncoder().withoutPadding().encodeToString(user.toString().getBytes());

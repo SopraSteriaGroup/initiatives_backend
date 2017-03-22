@@ -27,7 +27,7 @@ public enum SSOProvider {
     public static SSOProvider fromString(String ssoProviderName) {
         return Arrays.stream(SSOProvider.class.getEnumConstants())
                 .filter(s -> s.ssoProviderName.equalsIgnoreCase(ssoProviderName)
-                        || s.toString().equalsIgnoreCase(ssoProviderName))
+                        || s.name().equalsIgnoreCase(ssoProviderName))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }

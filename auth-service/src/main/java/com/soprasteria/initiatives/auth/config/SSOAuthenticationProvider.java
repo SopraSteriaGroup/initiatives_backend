@@ -38,7 +38,8 @@ public class SSOAuthenticationProvider implements AuthenticationProvider {
 
         //TODO call MS pour reccupération des roles
         List<GrantedAuthority> authorities = AuthorityUtils.NO_AUTHORITIES;
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser("", userSSO.id, userSSO.firstName, userSSO.lastName, authorities);
+        String userName = ssoProvider.toString() + "#" + userSSO.id;
+        AuthenticatedUser authenticatedUser = new AuthenticatedUser("", userName, userSSO.firstName, userSSO.lastName, authorities);
         return new UsernamePasswordAuthenticationToken(authenticatedUser, "", authorities);
     }
 
