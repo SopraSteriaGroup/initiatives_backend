@@ -2,10 +2,12 @@ package com.soprasteria.initiatives.auth.web;
 
 import com.soprasteria.initiatives.auth.service.TokenService;
 import com.soprasteria.initiatives.auth.utils.SSOProvider;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,11 +29,9 @@ public class TokenResource {
 
 
     @PostMapping
-    public ResponseEntity<OAuth2AccessToken> authorize(@RequestHeader String authorization,
+    public ResponseEntity<OAuth2AccessToken> authorize(@RequestParam String accessToken,
                                                        @RequestParam(defaultValue = "linkedin") String ssoProvider,
                                                        HttpServletRequest request) {
-        String accessToken = StringUtils.substringAfter(authorization, OAuth2AccessToken.BEARER_TYPE + " ");
         return tokenService.authorize(accessToken, SSOProvider.fromString(ssoProvider), request.getRequestURL().toString());
     }
-
 }

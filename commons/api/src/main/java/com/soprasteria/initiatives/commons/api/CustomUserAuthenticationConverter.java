@@ -22,7 +22,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
     public Authentication extractAuthentication(Map<String, ?> map) {
         Authentication authentication = super.extractAuthentication(map);
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        AuthenticatedUser user = new AuthenticatedUser(getToken(map), getUsername(map), authorities);
+        AuthenticatedUser user = new AuthenticatedUser(getToken(map), getUsername(map), getFistName(map), getLastName(map), authorities);
         return new UsernamePasswordAuthenticationToken(user, authentication.getCredentials(), authorities);
     }
 
@@ -32,6 +32,14 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
 
     private String getUsername(Map<String, ?> map) {
         return (String) map.get(USERNAME);
+    }
+
+    private String getFistName(Map<String, ?> map) {
+        return (String) map.get("firstName");
+    }
+
+    private String getLastName(Map<String, ?> map) {
+        return (String) map.get("lastName");
     }
 
 }

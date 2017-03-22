@@ -9,6 +9,6 @@ import java.util.Collections;
  */
 public class UserUtils {
 
-    public static final AuthenticatedUser EMPTY_USER = new AuthenticatedUser(null, null, Collections.emptyList());
+    public static final AuthenticatedUser EMPTY_USER = new AuthenticatedUser(null, null, null, null, Collections.emptyList());
 
 }

@@ -2,6 +2,8 @@ package com.soprasteria.initiatives.auth.config;
 
 import com.soprasteria.initiatives.auth.config.properties.CertProperties;
 import com.soprasteria.initiatives.auth.config.properties.TokenProperties;
+import com.soprasteria.initiatives.commons.api.CustomJwtAccessTokenConverter;
+import com.soprasteria.initiatives.commons.api.CustomUserAuthenticationConverter;
 import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,13 +55,22 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter jwtAccessTokenConverter = new CustomJwtAccessTokenConverter();
+        jwtAccessTokenConverter.setKeyPair(getKeyPair());
+        jwtAccessTokenConverter.setAccessTokenConverter(getCustomAccessTokenConverter());
+        return jwtAccessTokenConverter;
+    }
+
+    private KeyPair getKeyPair() {
         Resource cert = resourceLoader.getResource(certProperties.getFilePath());
         char[] password = certProperties.getPassword().toCharArray();
-        KeyPair keyPair = new KeyStoreKeyFactory(cert, password).getKeyPair(certProperties.getCertAlias());
-        jwtAccessTokenConverter.setKeyPair(keyPair);
-        jwtAccessTokenConverter.setAccessTokenConverter(new CustomAccessTokenConverter());
-        return jwtAccessTokenConverter;
+        return new KeyStoreKeyFactory(cert, password).getKeyPair(certProperties.getCertAlias());
+    }
+
+    private CustomAccessTokenConverter getCustomAccessTokenConverter() {
+        CustomAccessTokenConverter customAccessTokenConverter = new CustomAccessTokenConverter();
+        customAccessTokenConverter.setUserTokenConverter(new CustomUserAuthenticationConverter());
+        return customAccessTokenConverter;
     }
 
     @Bean
