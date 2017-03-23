@@ -8,10 +8,14 @@ package com.soprasteria.initiatives.auth.web;
  */
 public class ApiConstants {
 
+    public static final String FAKE_SSO = "/fakesso/me";
+
     private static final String API = "/api";
 
-    public static final String TOKENS = API + "/tokens";
+    static final String USERS = API + "/users";
 
-    public static final String FAKE_SSO = "/fakesso/me";
+    static final String AUTHORITIES = API + "/authorities";
+
+    public static final String TOKENS = API + "/tokens";
 
 }

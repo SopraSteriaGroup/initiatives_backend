@@ -81,7 +81,7 @@ public class TokenService {
         requestParams.add(OAuth2Utils.SCOPE, "openid");
         requestParams.add(OAuth2Utils.CLIENT_ID, oAuth2ClientProperties.getClientId());
         requestParams.add("secret", oAuth2ClientProperties.getClientSecret());
-        requestParams.add("provider", ssoProvider.toString());
+        requestParams.add("ssoProvider", ssoProvider.toString());
         return requestParams;
     }
 
