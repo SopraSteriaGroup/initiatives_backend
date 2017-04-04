@@ -1,6 +1,7 @@
-package com.soprasteria.initiatives.sopridees.repository;
+package com.soprasteria.initiatives.user.repository;
 
-import com.soprasteria.initiatives.sopridees.domain.Utilisateur;
+
+import com.soprasteria.initiatives.user.domain.Utilisateur;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**

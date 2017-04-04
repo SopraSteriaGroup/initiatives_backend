@@ -1,4 +1,4 @@
-package com.soprasteria.initiatives.sopridees.domain;
+package com.soprasteria.initiatives.user.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
  * Entity gérant un utilisateur
  *
  * @author rjansem
+ * @author cegiraud
  */
 @Entity(name = "utilisateur")
 public class Utilisateur {
@@ -15,8 +16,11 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "idsso")
-    private String idSso;
+    private String username;
+
+    private String firstName;
+
+    private String lastName;
 
     @NotNull
     @Pattern(regexp = "^.*@soprasteria.com$")
@@ -30,12 +34,32 @@ public class Utilisateur {
         return id;
     }
 
-    public String getIdSso() {
-        return idSso;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setIdSso(String idSso) {
-        this.idSso = idSso;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
