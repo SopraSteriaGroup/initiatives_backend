@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
 /**
@@ -67,4 +68,23 @@ public class UserService {
 
     }
 
+    public boolean exist() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof AuthenticatedUser) {
+            AuthenticatedUser authenticatedUser = (AuthenticatedUser) authentication.getPrincipal();
+            return userRepository.existsByUsername(authenticatedUser.getUsername());
+        }
+        return false;
+    }
+
+    public void activate(String uuid) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof AuthenticatedUser) {
+            AuthenticatedUser authenticatedUser = (AuthenticatedUser) authentication.getPrincipal();
+            User user = userRepository.findByUsernameAndCodeTemporaire(authenticatedUser.getUsername(), uuid.toString())
+                    .orElseThrow(EntityNotFoundException::new);
+            user.setCodeTemporaire(null);
+            userRepository.save(user);
+        }
+    }
 }

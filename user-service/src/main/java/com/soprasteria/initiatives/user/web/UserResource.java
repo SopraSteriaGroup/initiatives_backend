@@ -2,9 +2,8 @@ package com.soprasteria.initiatives.user.web;
 
 import com.soprasteria.initiatives.user.domain.User;
 import com.soprasteria.initiatives.user.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Ressource permettant de gérer les utilisateurs
@@ -25,6 +24,16 @@ public class UserResource {
     @PostMapping(ApiConstants.SUBSCRIBE)
     public void souscrire(User user) {
         userService.souscrire(user);
+    }
+
+    @PutMapping(ApiConstants.ACTIVATE)
+    public void activate(String uuid) {
+        userService.activate(uuid);
+    }
+
+    @GetMapping(ApiConstants.EXISTS)
+    public ResponseEntity exists() {
+        return userService.exist() ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
 }
