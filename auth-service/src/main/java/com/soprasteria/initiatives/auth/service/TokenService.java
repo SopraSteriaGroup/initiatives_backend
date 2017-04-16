@@ -16,7 +16,6 @@ import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -56,7 +55,7 @@ public class TokenService {
         try {
             String url = url(accessToken, ssoProvider, requestUrl);
             return new RestTemplate().postForEntity(url, new HttpEntity(initializeHeaders()), OAuth2AccessToken.class);
-        } catch (HttpClientErrorException e) {
+        } catch (Exception e) {
             LOGGER.warn("Unable to obtain token {}", e);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

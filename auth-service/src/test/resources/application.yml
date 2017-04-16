@@ -1,0 +1,52 @@
+server:
+  port: 9081
+spring:
+  datasource:
+    url: jdbc:h2:mem:authdb;DB_CLOSE_DELAY=-1
+    username: authdb
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  profiles:
+    active: bouchon
+security:
+  oauth2:
+    client:
+      client-id: initiatives_app
+      client-secret: initiatives_super_secure_secret
+  basic:
+    enabled: false
+auth:
+  cert:
+    filePath: classpath:initiatives_cert.jks
+    password: sopra*
+    certAlias: initiatives
+  token:
+    accessValiditySeconds: 1800
+    refreshValidityMinutes: 180
+  sso:
+    providers:
+      linkedin:
+        profileUrl: https://api.linkedin.com/v1/people/~?format=json
+        id: id
+        firstName: firstName
+        lastName: lastName
+      google:
+        profileUrl: https://www.googleapis.com/userinfo/v2/me
+        id: id
+        firstName: given_name
+        lastName: family_name
+      fakesso:
+        profileUrl: http://127.0.0.1:9081/fakesso/me
+        id: id
+        firstName: firstName
+        lastName: lastName
+api:
+  title: AuthService REST API
+  description: OAuth2 authentication service mocking API Gateway
+  version: 1.0.0
+  termsOfServiceUrl: https://github.com/SopraSteriaGroup/initiatives_backend
+  license: MIT
+  licenseUrl: https://tldrlegal.com/license/mit-license
+

@@ -4,6 +4,8 @@ import com.soprasteria.initiatives.auth.config.properties.SSOProperties;
 import com.soprasteria.initiatives.auth.service.UserService;
 import com.soprasteria.initiatives.auth.utils.SSOProvider;
 import com.soprasteria.initiatives.commons.api.AuthenticatedUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -25,6 +28,8 @@ import static com.soprasteria.initiatives.auth.config.properties.SSOProperties.S
 
 @Configuration
 public class SSOAuthenticationProvider implements AuthenticationProvider {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SSOAuthenticationProvider.class);
 
     private SSOProperties ssoProperties;
 
@@ -41,8 +46,13 @@ public class SSOAuthenticationProvider implements AuthenticationProvider {
         Map details = (Map) authentication.getDetails();
         SSOProvider ssoProvider = SSOProvider.fromString((String) details.get("ssoProvider"));
         SSOValues ssoValues = ssoProperties.getProviders().get(ssoProvider);
-        UserSSO userSSO = callSSOProvider(authentication.getPrincipal().toString(), ssoValues);
-        return buildAuthentication(userSSO, ssoProvider);
+        try {
+            UserSSO userSSO = callSSOProvider(authentication.getPrincipal().toString(), ssoValues);
+            return buildAuthentication(userSSO, ssoProvider);
+        } catch (HttpClientErrorException e) {
+            LOGGER.warn("Invalid token {}", e);
+            return null;
+        }
     }
 
     private UserSSO callSSOProvider(String accessToken, SSOValues ssoValues) {

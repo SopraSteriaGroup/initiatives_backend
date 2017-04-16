@@ -4,6 +4,7 @@ import com.soprasteria.initiatives.commons.api.ProfileConstants;
 import com.soprasteria.initiatives.commons.api.SecurityConstants;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class FakeSSOResource {
      * - accessToken = <token réccupéré>
      * - ssoProdider = fakesso
      *
-     * @param idsso  : l'idsso souhaité.
+     * @param idsso     : l'idsso souhaité.
      * @param firstName : le prénom de l'utilisateur
      * @param lastName  : le nom de l'utiliateur
      * @return l'accessToken
@@ -43,7 +44,7 @@ public class FakeSSOResource {
                     "* ssoProdider = fakesso")
     @GetMapping(ApiConstants.TOKENS)
     @ResponseBody
-    public String createAccessToken(@RequestParam String idsso, @RequestParam String firstName, @RequestParam String lastName) throws Exception {
+    public String createAccessToken(@RequestParam String idsso, @RequestParam String firstName, @RequestParam String lastName) throws JSONException {
         JSONObject user = new JSONObject();
         user.put("id", idsso);
         user.put("firstName", firstName);
