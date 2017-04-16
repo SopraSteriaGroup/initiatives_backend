@@ -1,6 +1,6 @@
-package com.soprasteria.initiatives.user.api;
+package com.soprasteria.initiatives.user.web;
 
-import com.soprasteria.initiatives.user.domain.Utilisateur;
+import com.soprasteria.initiatives.user.domain.User;
 import com.soprasteria.initiatives.user.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author cegiraud
  */
 @RestController
-@RequestMapping(ApiConstants.USERS_URI)
+@RequestMapping(ApiConstants.USERS)
 public class UserResource {
 
     private final UserService userService;
@@ -22,9 +22,9 @@ public class UserResource {
         this.userService = userService;
     }
 
-    @PostMapping(ApiConstants.SOUSCRIRE_URI)
-    public void souscrire(Utilisateur utilisateur) {
-        userService.souscrire(utilisateur);
+    @PostMapping(ApiConstants.SUBSCRIBE)
+    public void souscrire(User user) {
+        userService.souscrire(user);
     }
 
 }

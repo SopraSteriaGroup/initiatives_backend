@@ -10,8 +10,8 @@ import javax.validation.constraints.Pattern;
  * @author rjansem
  * @author cegiraud
  */
-@Entity(name = "utilisateur")
-public class Utilisateur {
+@Entity(name = "user")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

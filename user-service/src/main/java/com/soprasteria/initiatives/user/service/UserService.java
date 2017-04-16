@@ -2,9 +2,8 @@ package com.soprasteria.initiatives.user.service;
 
 
 import com.soprasteria.initiatives.commons.api.AuthenticatedUser;
-import com.soprasteria.initiatives.user.domain.Utilisateur;
-import com.soprasteria.initiatives.user.repository.UtilisateurRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.soprasteria.initiatives.user.domain.User;
+import com.soprasteria.initiatives.user.repository.UserRepository;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,41 +23,41 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    private final UtilisateurRepository utilisateurRepository;
+    private final UserRepository userRepository;
 
     private final JavaMailSender javaMailSender;
 
-    public UserService(UtilisateurRepository utilisateurRepository, JavaMailSender javaMailSender) {
-        this.utilisateurRepository = utilisateurRepository;
+    public UserService(UserRepository userRepository, JavaMailSender javaMailSender) {
+        this.userRepository = userRepository;
         this.javaMailSender = javaMailSender;
     }
 
     /**
      * Effectue une souscription et envoie un email à l'utilisateur
      *
-     * @param utilisateur : utilisateur a enregistrer
+     * @param user : utilisateur a enregistrer
      */
-    public void souscrire(Utilisateur utilisateur) {
+    public void souscrire(User user) {
         UUID uuid = UUID.randomUUID();
-        utilisateur.setCodeTemporaire(uuid.toString());
+        user.setCodeTemporaire(uuid.toString());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof AuthenticatedUser) {
-            AuthenticatedUser user = (AuthenticatedUser) authentication.getPrincipal();
-            utilisateur.setUsername(user.getUsername());
-            utilisateur.setFirstName(user.getFirstName());
-            utilisateur.setLastName(user.getLastName());
+            AuthenticatedUser authenticatedUser = (AuthenticatedUser) authentication.getPrincipal();
+            user.setUsername(authenticatedUser.getUsername());
+            user.setFirstName(authenticatedUser.getFirstName());
+            user.setLastName(authenticatedUser.getLastName());
         }
-        utilisateurRepository.save(utilisateur);
-        sendMail(utilisateur);
+        userRepository.save(user);
+        sendMail(user);
     }
 
-    private void sendMail(Utilisateur utilisateur) {
+    private void sendMail(User user) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom("test@soprasteria.com");
-            messageHelper.setTo(utilisateur.getEmail());
+            messageHelper.setTo(user.getEmail());
             messageHelper.setSubject("Votre code de validation");
-            messageHelper.setText("Veuillez trouver ici votre code pour vous connecter : " + utilisateur.getCodeTemporaire());
+            messageHelper.setText("Veuillez trouver ici votre code pour vous connecter : " + user.getCodeTemporaire());
         };
         try {
             javaMailSender.send(messagePreparator);
