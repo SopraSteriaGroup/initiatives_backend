@@ -12,7 +12,9 @@ import org.springframework.cloud.config.server.EnableConfigServer;
  */
 @EnableConfigServer
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.soprasteria.initiatives.config",
+        "com.soprasteria.initiatives.commons.eurekaclient"})
 public class ConfigServerApplication {
 
     public static void main(String[] args) {

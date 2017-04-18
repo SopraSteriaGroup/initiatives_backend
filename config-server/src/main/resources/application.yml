@@ -12,10 +12,12 @@ eureka:
   instance:
     hostname: localhost
   client:
+    trust-store: classpath:truststore.jks
+    trust-store-password: changeit
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: https://localhost:8761/eureka/
 management:
   security:
     enabled: false

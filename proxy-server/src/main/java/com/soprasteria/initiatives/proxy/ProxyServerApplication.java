@@ -10,7 +10,10 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * @author jntakpe
  */
 @EnableZuulProxy
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.soprasteria.initiatives.proxy",
+        "com.soprasteria.initiatives.commons.eurekaclient"})
+
 public class ProxyServerApplication {
 
     public static void main(String[] args) {

@@ -35,6 +35,7 @@
 
     <modules>
         <module>api</module>
+        <module>eureka-client</module>
         <module>testing</module>
         <module>tracing</module>
         <module>error</module>

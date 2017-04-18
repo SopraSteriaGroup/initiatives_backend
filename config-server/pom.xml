@@ -22,6 +22,7 @@
         <java.version>1.8</java.version>
 
         <organization.name>ssg</organization.name>
+        <commons.version>0.0.1-SNAPSHOT</commons.version>
         <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
     </properties>
 
@@ -42,6 +43,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.soprasteria.initiatives</groupId>
+            <artifactId>commons-eureka-client</artifactId>
+            <version>${commons.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

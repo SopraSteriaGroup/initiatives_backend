@@ -15,7 +15,9 @@ import org.springframework.context.annotation.Bean;
  * @author cegiraud
  */
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.soprasteria.initiatives.auth",
+        "com.soprasteria.initiatives.commons.eurekaclient"})
 public class AuthServiceApplication {
 
     public static void main(String[] args) {
