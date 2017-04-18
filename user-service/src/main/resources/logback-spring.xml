@@ -1,11 +1,24 @@
-<configuration scan="true">
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    ​
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}"/>​
 
-    <root level="TRACE">
-        <appender-ref ref="CONSOLE"/>
-    </root>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
-    <logger name="com.soprasteria.initiatives.user" level="DEBUG"/>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="com.soprasteria.initiatives" level="TRACE"/>
     <logger name="javax" level="WARN"/>
     <logger name="com.sun" level="OFF"/>
     <logger name="sun.net" level="OFF"/>
@@ -14,14 +27,34 @@
     <logger name="org.aspectj" level="WARN"/>
     <logger name="org.jboss" level="WARN"/>
     <logger name="com.jayway" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.hibernate.SQL" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
+    <logger name="org.hibernate.type" level="INFO"/>
+    <logger name="com.querydsl" level="WARN"/>
+    <logger name="org.ehcache" level="WARN"/>
+    <logger name="class org.ehcache" level="WARN"/>
+    <logger name="com.zaxxer.hikari" level="WARN"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.boot" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>
     <logger name="org.springframework.security" level="WARN"/>
+    <logger name="org.springframework.cache" level="WARN"/>
+    <logger name="kafka" level="WARN"/>
     <logger name="io.github.openfeign" level="WARN"/>
     <logger name="com.netflix" level="WARN"/>
     <logger name="feign.hystrix" level="WARN"/>
+    <logger name="org.I0Itec.zkclient" level="WARN"/>
     <logger name="springfox" level="WARN"/>
+    <logger name="org.apache.kafka.clients.consumer.ConsumerConfig" level="ERROR"/>
+    <logger name="org.apache.kafka.clients.producer.ProducerConfig" level="ERROR"/>
+    <logger name="com.netflix.config.sources.URLConfigurationSource" level="ERROR"/>
+    <logger name="org.springframework.context.annotation.ConfigurationClassPostProcessor" level="ERROR"/>
+    <logger name="org.springframework.cloud.config.server.environment.NativeEnvironmentRepository" level="INFO"/>
+    <logger name="org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer" level="INFO"/>
+
+    <root level="TRACE">
+        <appender-ref ref="console"/>
+    </root>
 
 </configuration>
