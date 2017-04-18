@@ -3,7 +3,6 @@ package com.soprasteria.initiatives.auth.web;
 import com.soprasteria.initiatives.auth.domain.Authority;
 import com.soprasteria.initiatives.auth.domain.User;
 import com.soprasteria.initiatives.auth.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +34,11 @@ public class UserResource {
     @GetMapping("/{userId}")
     public User find(@PathVariable Long userId) {
         return userService.findById(userId);
+    }
+
+    @PutMapping("/activate")
+    public void activate(String uuid) {
+        userService.activate(uuid);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

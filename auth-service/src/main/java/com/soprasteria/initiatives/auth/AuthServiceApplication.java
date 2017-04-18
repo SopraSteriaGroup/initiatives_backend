@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Bean;
  * @author jntakpe
  * @author cegiraud
  */
+@EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {
         "com.soprasteria.initiatives.auth",

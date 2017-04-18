@@ -14,6 +14,8 @@ public class ApiConstants {
 
     static final String USERS = API + "/users";
 
+    static final String ACTIVATE = API + "/activate";
+
     static final String AUTHORITIES = API + "/authorities";
 
     public static final String TOKENS = API + "/tokens";

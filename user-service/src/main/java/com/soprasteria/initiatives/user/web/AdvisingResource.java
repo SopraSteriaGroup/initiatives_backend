@@ -1,6 +1,5 @@
-package com.soprasteria.initiatives.auth.web;
+package com.soprasteria.initiatives.user.web;
 
-import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +15,7 @@ import javax.validation.ValidationException;
  * Common resource handling exception for all resources
  *
  * @author jntakpe
+ * @author cegiraud
  */
 @ControllerAdvice
 public class AdvisingResource {
@@ -28,11 +28,6 @@ public class AdvisingResource {
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<String> handleValidation(ValidationException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(FeignException.class)
-    public ResponseEntity<String> handleFeignException(FeignException e) {
-        return ResponseEntity.status(e.status()).build();
     }
 
 }

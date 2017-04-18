@@ -1,10 +1,14 @@
 package com.soprasteria.initiatives.auth.service;
 
+import com.soprasteria.initiatives.auth.client.UserClient;
 import com.soprasteria.initiatives.auth.domain.Authority;
 import com.soprasteria.initiatives.auth.domain.User;
 import com.soprasteria.initiatives.auth.repository.UserRepository;
+import com.soprasteria.initiatives.commons.api.AuthenticatedUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,9 +34,12 @@ public class UserService {
 
     private final AuthorityService authorityService;
 
-    public UserService(UserRepository userRepository, AuthorityService authorityService) {
+    private final UserClient userClient;
+
+    public UserService(UserRepository userRepository, AuthorityService authorityService, UserClient userClient) {
         this.userRepository = userRepository;
         this.authorityService = authorityService;
+        this.userClient = userClient;
     }
 
 
@@ -129,4 +136,14 @@ public class UserService {
         }
     }
 
+    public void activate(String uuid) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof AuthenticatedUser) {
+            AuthenticatedUser authenticatedUser = (AuthenticatedUser) authentication.getPrincipal();
+            userClient.activate(authenticatedUser.getAuthorizationHeaderField(), uuid);
+            User user = new User();
+            user.setUsername(authenticatedUser.getUsername());
+            create(user);
+        }
+    }
 }
