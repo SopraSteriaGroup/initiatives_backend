@@ -6,16 +6,21 @@ import com.netflix.discovery.EurekaClientConfig;
 import com.netflix.discovery.converters.wrappers.CodecWrappers;
 import com.netflix.discovery.shared.transport.jersey.EurekaJerseyClient;
 import com.netflix.discovery.shared.transport.jersey.EurekaJerseyClientImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
 
 @Configuration
 public class EurekaSslConfig {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaSslConfig.class);
 
     @Value("${eureka.client.trust-store: classpath:truststore.jks}")
     private Resource trustStore;
@@ -40,8 +45,13 @@ public class EurekaSslConfig {
                 .withMaxTotalConnections(eurekaClientConfig.getEurekaServerTotalConnections())
                 .withConnectionIdleTimeout(eurekaClientConfig.getEurekaConnectionIdleTimeoutSeconds() * 1000)
                 .withEncoderWrapper(CodecWrappers.getEncoder(eurekaClientConfig.getEncoderName()))
-                .withDecoderWrapper(CodecWrappers.resolveDecoder(eurekaClientConfig.getDecoderName(), eurekaClientConfig.getClientDataAccept()))
-                .withTrustStoreFile(trustStore.getFile().getPath(), trustStorePassword);
+                .withDecoderWrapper(CodecWrappers.resolveDecoder(eurekaClientConfig.getDecoderName(), eurekaClientConfig.getClientDataAccept()));
+
+        if (ResourceUtils.isFileURL(trustStore.getURL())) {
+            clientBuilder.withTrustStoreFile(trustStore.getFile().getPath(), trustStorePassword);
+        } else {
+            LOGGER.warn("impossible de lire le trustore : {}", trustStore.getURL().getPath());
+        }
         EurekaJerseyClient jerseyClient = clientBuilder.build();
         args.setEurekaJerseyClient(jerseyClient);
         return args;
