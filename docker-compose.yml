@@ -25,13 +25,21 @@ services:
       - registry-server
       - config-server
   sopridees-service:
-    image: ssg/sopridees-service
-    ports:
-      - 8280:8280
-    links:
-      - kafka
-      - registry-server
-      - config-server
+      image: ssg/sopridees-service
+      ports:
+        - 8280:8280
+      links:
+        - kafka
+        - registry-server
+        - config-server
+  user-service:
+      image: ssg/user-service
+      ports:
+        - 8380:8380
+      links:
+        - kafka
+        - registry-server
+        - config-server
   proxy-server:
     image: ssg/proxy-server
     ports:
