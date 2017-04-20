@@ -14,7 +14,7 @@
     <packaging>jar</packaging>
 
     <name>auth-service</name>
-    <description>OAuth2 authentication service mocking API Gateway</description>
+    <description>OAuth2 authentication service</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
