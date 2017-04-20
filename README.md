@@ -59,10 +59,10 @@ A la racine du projet exécuter la commande ``docker-compose up``
 
 ###### Visualiser les applications
 
-Les instances des applications démarées sont visibles depuis Eureka (registry-server) à l'adresse ``https://localhost:8761/``.
+Les instances des applications démarées sont visibles depuis Eureka (registry-server) à l'adresse ``http://localhost:8761/``.
 
-Les documentations des APIs sont disponibles à l'adresse ``https://localhost:9080/NOM_DU_SERVICE/swagger-ui.html``, par exemple 
-``https://localhost:9080/auth-service/swagger-ui.html`` pour le service *auth-service*.
+Les documentations des APIs sont disponibles à l'adresse ``http://localhost:9080/NOM_DU_SERVICE/swagger-ui.html``, par exemple 
+``http://localhost:9080/auth-service/swagger-ui.html`` pour le service *auth-service*.
 
 Une application d'administration [dashboard-admin](/dashboard-admin) basée sur 
 [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin) démarre à l'adresse ``http://localhost:6363``.
@@ -122,7 +122,7 @@ Il est possible de mettre à jour dynamiquement la configuration des application
 
 Pour changer la dynamiquement la configuration, il sera nécessaire :
 * de mettre à jour la configuration depuis le serveur de configuration
-* d'appeler l'URL de rafraichissement de la configuration (par exemple ``https://localhost:9080/account-service/refresh``)
+* d'appeler l'URL de rafraichissement de la configuration (par exemple ``http://localhost:9080/account-service/refresh``)
 
 Ou alors, Il possible de changer les propriétés dynamiquement également depuis l'application d'administration *dashboard-admin* :
 ![Admin properties](https://cloud.githubusercontent.com/assets/3605418/24073041/1943d510-0bf1-11e7-88a3-8b4034aa9d8c.png)
@@ -147,7 +147,7 @@ démarrage s'enregistre sur Eureka qui fournira des metadatas telles que l'URL, 
 Eureka reçoit des messages de 'heartbeat' provenant des applications clientes, si aucun message n'est reçu, en fonction d'une 'timetable'
  configurable, Eureka supprimera l'instance.
  
-Par défaut, Eureka démarre à l'adresse ``https://localhost:8761``. 
+Par défaut, Eureka démarre à l'adresse ``http://localhost:8761``. 
 ![Eureka IHM](https://cloud.githubusercontent.com/assets/3605418/24073146/2225478e-0bf3-11e7-940f-90948b99ef1a.png)
 
 
@@ -159,7 +159,7 @@ La gateway de l'architecture microservices est le point d'entrée unique de l'ar
 L'affichage d'une page web ou mobile peut nécessiter l'appel à une dizaine de microservices différents. Il n'est pas envisageable pour 
 l'application cliente de connaitre l'ensemble des adresses physiques des microservices. Pour répondre à cette problématique, la gateway 
 devient la seule adresse à connaitre pour les applications clientes. Par exemple, l'url de *auth-service* 
-``http://localhost:9081/api/tokens`` devient ``https://localhost:9080/auth-service/api/tokens``.
+``http://localhost:9081/api/tokens`` devient ``http://localhost:9080/auth-service/api/tokens``.
  
 Une autre utilité de la Gateway Zuul est également la possibilité d'utiliser en front des protocoles web-friendly comme HTTP avec du JSON et
  sur le backend d'autres protocoles comme AMQP, Google Protobuff, etc.

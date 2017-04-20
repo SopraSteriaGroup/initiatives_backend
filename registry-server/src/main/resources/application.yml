@@ -1,10 +1,5 @@
 server:
   port: ${eureka.uri:8761}
-  ssl:
-    enabled: true
-    key-store: classpath:keystore.jks
-    key-store-password: changeit
-    key-password: password
 eureka:
   instance:
     hostname: localhost

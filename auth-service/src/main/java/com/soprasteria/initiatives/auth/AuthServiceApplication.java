@@ -17,9 +17,7 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableFeignClients
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {
-        "com.soprasteria.initiatives.auth",
-        "com.soprasteria.initiatives.commons.eurekaclient"})
+@SpringBootApplication
 public class AuthServiceApplication {
 
     public static void main(String[] args) {

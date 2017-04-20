@@ -36,7 +36,7 @@ public class UserResource {
         return userService.findById(userId);
     }
 
-    @PutMapping("/activate")
+    @PutMapping(ApiConstants.ACTIVATE)
     public void activate(String uuid) {
         userService.activate(uuid);
     }
