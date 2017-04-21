@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
@@ -38,6 +39,7 @@ public class UserService {
      *
      * @param user : utilisateur a enregistrer
      */
+    @Transactional
     public void souscrire(User user) {
         UUID uuid = UUID.randomUUID();
         user.setCodeTemporaire(uuid.toString());
@@ -47,6 +49,8 @@ public class UserService {
             user.setUsername(authenticatedUser.getUsername());
             user.setFirstName(authenticatedUser.getFirstName());
             user.setLastName(authenticatedUser.getLastName());
+            userRepository.findByUsername(authenticatedUser.getUsername())
+                    .ifPresent(u -> user.setId(u.getId()));
         }
         userRepository.save(user);
         sendMail(user);
@@ -68,6 +72,7 @@ public class UserService {
 
     }
 
+    @Transactional(readOnly = true)
     public boolean exist() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof AuthenticatedUser) {
@@ -77,6 +82,7 @@ public class UserService {
         return false;
     }
 
+    @Transactional
     public void activate(String uuid) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof AuthenticatedUser) {

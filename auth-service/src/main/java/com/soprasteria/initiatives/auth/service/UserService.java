@@ -136,6 +136,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public void activate(String uuid) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof AuthenticatedUser) {

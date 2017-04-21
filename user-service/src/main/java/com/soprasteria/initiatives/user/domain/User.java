@@ -1,8 +1,11 @@
 package com.soprasteria.initiatives.user.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 
 /**
  * Entity gérant un utilisateur
@@ -76,5 +79,29 @@ public class User {
 
     public void setCodeTemporaire(String codeTemporaire) {
         this.codeTemporaire = codeTemporaire;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("username", username)
+                .toString();
     }
 }
