@@ -1,0 +1,49 @@
+buildscript {
+	ext {
+		springBootVersion = "2.0.0.BUILD-SNAPSHOT"
+		commonsLang3Version = "3.5"
+		springfoxSwagger2Version = "2.6.1"
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "application"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+version = "0.0.1-SNAPSHOT"
+sourceCompatibility = 1.8
+mainClassName = "com.soprasteria.initiatives.InitiativesBackendApplication"
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+	compile("org.springframework.security.oauth:spring-security-oauth2")
+	compile("org.springframework.security:spring-security-jwt")
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile ("org.apache.commons:commons-lang3:${commonsLang3Version}")
+	compile("org.springframework.boot:spring-boot-starter-webflux")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.boot:spring-boot-starter-mail")
+	compile("io.springfox:springfox-swagger2:${springfoxSwagger2Version}")
+	compile("io.springfox:springfox-swagger-ui:${springfoxSwagger2Version}")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+

@@ -1,4 +1,5 @@
-# Initiatives microservices backend
+#TODO : Change the old doc !
+#Initiatives microservices backend
 
 Backend du project **Initiatives** basé sur une architecture microservices.
 
