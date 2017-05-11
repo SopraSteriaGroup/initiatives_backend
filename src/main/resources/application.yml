@@ -59,8 +59,6 @@ auth:
 ---
 spring:
   profiles: docker
-
-spring:
   data:
     mongodb:
       database: initiatives
