@@ -10,9 +10,7 @@ services:
       - 25:25
       - 1080:80
   initiatives-backend:
-    build:
-      dockerfile: ./src/main/docker/Dockerfile
-      context: .
+    image: ${REPO}/ssg/initiatives_backend:${TAG_INITIATIVES_BACKEND}
     ports:
       - 8080:8080
     links:

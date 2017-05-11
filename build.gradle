@@ -11,18 +11,25 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("se.transmode.gradle:gradle-docker:1.2")
 	}
 }
 
 apply plugin: "java"
-apply plugin: "eclipse"
+apply plugin: 'docker'
 apply plugin: "application"
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
 version = "0.0.1-SNAPSHOT"
+group = "ssg"
 sourceCompatibility = 1.8
 mainClassName = "com.soprasteria.initiatives.InitiativesBackendApplication"
+
+docker {
+	baseImage "openjdk:8-jre"
+	maintainer 'Charles-Eric GIRAUD <http://www.github.com/cegiraud>'
+}
 
 repositories {
 	mavenCentral()
@@ -46,4 +53,14 @@ dependencies {
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
+task buildDocker(type: Docker) {
+	setEnvironment('SPRING_PROFILES_ACTIVE','docker')
+	volume("/tmp")
+	addFile('build/libs/initiatives_backend-0.0.1-SNAPSHOT.jar','app.jar')
+	runCommand("bash -c 'touch /app.jar'")
+	entryPoint(['java', '-jar', '/app.jar'])
+	exposePort 8080
+}
+
+buildDocker.dependsOn(build)
 
