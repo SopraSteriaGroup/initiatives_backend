@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * Resource providing simplified access to token
  *
@@ -30,9 +28,7 @@ public class TokenResource {
 
     @PostMapping
     public Mono<OAuth2AccessToken> authorize(@RequestParam String accessToken,
-                                             @RequestParam(defaultValue = "linkedin") String ssoProvider,
-                                             HttpServletRequest request) {
-        String requestUrl = request.getRequestURL().toString();
-        return Mono.just(tokenService.authorize(accessToken, SSOProvider.fromString(ssoProvider), requestUrl).getBody());
+                                             @RequestParam(defaultValue = "linkedin") String ssoProvider) {
+        return Mono.just(tokenService.authorize(accessToken, SSOProvider.fromString(ssoProvider)).getBody());
     }
 }

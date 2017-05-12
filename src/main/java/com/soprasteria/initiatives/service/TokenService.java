@@ -1,10 +1,10 @@
 package com.soprasteria.initiatives.service;
 
 import com.soprasteria.initiatives.utils.SSOProvider;
-import com.soprasteria.initiatives.utils.UrlUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -37,15 +37,18 @@ public class TokenService {
 
     private static final String OAUTH2_TOKEN_URL = "/oauth/token";
 
+    @Value("${server.port:0}")
+    private int port;
+
     private final OAuth2ClientProperties oAuth2ClientProperties;
 
     public TokenService(OAuth2ClientProperties oAuth2ClientProperties) {
         this.oAuth2ClientProperties = oAuth2ClientProperties;
     }
 
-    public ResponseEntity<OAuth2AccessToken> authorize(String accessToken, SSOProvider ssoProvider, String requestUrl) {
+    public ResponseEntity<OAuth2AccessToken> authorize(String accessToken, SSOProvider ssoProvider) {
         try {
-            String url = url(accessToken, ssoProvider, requestUrl);
+            String url = url(accessToken, ssoProvider);
             return new RestTemplate().postForEntity(url, new HttpEntity(initializeHeaders()), OAuth2AccessToken.class);
         } catch (Exception e) {
             LOGGER.warn("Unable to obtain token {}", e);
@@ -53,10 +56,14 @@ public class TokenService {
         }
     }
 
-    private String url(String accessToken, SSOProvider ssoProvider, String requestUrl) {
-        String serverAddress = UrlUtils.getServerAdressFromRequest(requestUrl);
-        return UriComponentsBuilder.fromHttpUrl(serverAddress + OAUTH2_TOKEN_URL)
-                .queryParams(requestParams(accessToken, ssoProvider)).toUriString();
+    private String url(String accessToken, SSOProvider ssoProvider) {
+        return UriComponentsBuilder.newInstance()
+                .scheme("http")
+                .host("localhost")
+                .port(port)
+                .path(OAUTH2_TOKEN_URL)
+                .queryParams(requestParams(accessToken, ssoProvider))
+                .toUriString();
     }
 
     private MultiValueMap<String, String> requestParams(String authorization, SSOProvider ssoProvider) {
