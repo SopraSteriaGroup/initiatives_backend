@@ -24,7 +24,7 @@ apply plugin: "io.spring.dependency-management"
 version = "0.0.1-SNAPSHOT"
 group = "ssg"
 sourceCompatibility = 1.8
-mainClassName = "com.soprasteria.initiatives.InitiativesBackendApplication"
+mainClassName = "com.soprasteria.initiatives.auth.InitiativesAuthApplication"
 
 docker {
 	baseImage "openjdk:8-jre"
@@ -60,7 +60,7 @@ dependencies {
 task buildDocker(type: Docker) {
 	setEnvironment('SPRING_PROFILES_ACTIVE','docker')
 	volume("/tmp")
-	addFile('build/libs/initiatives_backend-0.0.1-SNAPSHOT.jar','app.jar')
+	addFile('build/libs/initiatives_backend_auth-0.0.1-SNAPSHOT.jar','app.jar')
 	runCommand("bash -c 'touch /app.jar'")
 	entryPoint(['java', '-jar', '/app.jar'])
 	exposePort 8080

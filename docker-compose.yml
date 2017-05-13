@@ -10,7 +10,7 @@ services:
       - 25:25
       - 1080:80
   initiatives-backend:
-    image: ${REPO}/ssg/initiatives_backend:${TAG_INITIATIVES_BACKEND}
+    image: ${REPO}/ssg/initiatives_backend_auth:${TAG_INITIATIVES_BACKEND}
     ports:
       - 8080:8080
     links:

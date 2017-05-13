@@ -26,33 +26,18 @@
     <logger name="org.apache" level="WARN"/>
     <logger name="org.aspectj" level="WARN"/>
     <logger name="org.jboss" level="WARN"/>
-    <logger name="com.jayway" level="WARN"/>
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.hibernate.SQL" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
     <logger name="org.hibernate.type" level="INFO"/>
-    <logger name="com.querydsl" level="WARN"/>
-    <logger name="org.ehcache" level="WARN"/>
-    <logger name="class org.ehcache" level="WARN"/>
-    <logger name="com.zaxxer.hikari" level="WARN"/>
     <logger name="org.mongodb.driver" level="WARN"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.boot" level="WARN"/>
     <logger name="org.springframework.web" level="INFO"/>
     <logger name="org.springframework.security" level="WARN"/>
     <logger name="org.springframework.cache" level="WARN"/>
-    <logger name="kafka" level="WARN"/>
-    <logger name="io.github.openfeign" level="WARN"/>
-    <logger name="com.netflix" level="WARN"/>
-    <logger name="feign.hystrix" level="WARN"/>
-    <logger name="org.I0Itec.zkclient" level="WARN"/>
     <logger name="springfox" level="WARN"/>
-    <logger name="org.apache.kafka.clients.consumer.ConsumerConfig" level="ERROR"/>
-    <logger name="org.apache.kafka.clients.producer.ProducerConfig" level="ERROR"/>
-    <logger name="com.netflix.config.sources.URLConfigurationSource" level="ERROR"/>
     <logger name="org.springframework.context.annotation.ConfigurationClassPostProcessor" level="ERROR"/>
-    <logger name="org.springframework.cloud.config.server.environment.NativeEnvironmentRepository" level="INFO"/>
-    <logger name="org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer" level="INFO"/>
 
     <root level="TRACE">
         <appender-ref ref="console"/>
