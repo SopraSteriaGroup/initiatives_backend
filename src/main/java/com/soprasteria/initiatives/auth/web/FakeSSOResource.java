@@ -43,7 +43,7 @@ public class FakeSSOResource {
             notes = "Utiliser le token réccupéré pour s'authentifier en POST avec :\n" +
                     "* accessToken = &lt;le token réccupéré&gt;\n" +
                     "* ssoProdider = fakesso")
-    @GetMapping(ApiConstants.TOKENS)
+    @GetMapping(ApiConstants.AUTHENTICATION + ApiConstants.TOKENS)
     @ResponseBody
     public String createAccessToken(@RequestParam String idsso, @RequestParam String firstName, @RequestParam String lastName) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

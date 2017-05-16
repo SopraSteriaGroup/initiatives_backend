@@ -1,8 +1,11 @@
 package com.soprasteria.initiatives.auth.web;
 
 import com.soprasteria.initiatives.auth.domain.User;
+import com.soprasteria.initiatives.auth.service.TokenService;
 import com.soprasteria.initiatives.auth.service.UserActivationService;
+import com.soprasteria.initiatives.auth.utils.SSOProvider;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -13,12 +16,15 @@ import reactor.core.publisher.Mono;
  * @author cegiraud
  */
 @RestController
-@RequestMapping(ApiConstants.USERS)
-public class UserActivationResource {
+@RequestMapping(ApiConstants.AUTHENTICATION)
+public class AuthenticationResource {
+
+    private final TokenService tokenService;
 
     private final UserActivationService userActivationService;
 
-    public UserActivationResource(UserActivationService userActivationService) {
+    public AuthenticationResource(TokenService tokenService, UserActivationService userActivationService) {
+        this.tokenService = tokenService;
         this.userActivationService = userActivationService;
     }
 
@@ -36,7 +42,12 @@ public class UserActivationResource {
     public Mono<ResponseEntity<Object>> exists() {
         return userActivationService.exist()
                 .map((Boolean exist) -> exist ? ResponseEntity.ok() : ResponseEntity.notFound())
-                .map(response -> response.build());
+                .map(resp -> resp.build());
     }
 
+    @PostMapping(ApiConstants.TOKENS)
+    public Mono<OAuth2AccessToken> authorize(@RequestParam String accessToken,
+                                             @RequestParam(defaultValue = "linkedin") String ssoProvider) {
+        return Mono.just(tokenService.authorize(accessToken, SSOProvider.fromString(ssoProvider)).getBody());
+    }
 }

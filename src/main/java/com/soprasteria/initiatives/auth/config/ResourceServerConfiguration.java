@@ -22,7 +22,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(ApiConstants.TOKENS).permitAll()
+                .antMatchers(ApiConstants.AUTHENTICATION + ApiConstants.TOKENS).permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers(SecurityConstants.SWAGGER_PATHS).permitAll()
                 .anyRequest().authenticated();

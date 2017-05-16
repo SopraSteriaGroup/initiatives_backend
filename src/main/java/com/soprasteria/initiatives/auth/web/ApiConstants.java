@@ -10,9 +10,13 @@ public class ApiConstants {
 
     public static final String FAKE_SSO = "/fakesso/me";
 
-    private static final String API = "/api";
+    public static final String API = "/api";
 
     static final String USERS = API + "/users";
+
+    static final String AUTHORITIES = API + "/authorities";
+
+    public static final String AUTHENTICATION = API + "/authentication";
 
     static final String ACTIVATE = "/activate";
 
@@ -20,9 +24,7 @@ public class ApiConstants {
 
     static final String EXISTS = "/exists";
 
-    static final String AUTHORITIES = API + "/authorities";
-
-    public static final String TOKENS = API + "/tokens";
+    public static final String TOKENS = "/tokens";
 
 
 }
