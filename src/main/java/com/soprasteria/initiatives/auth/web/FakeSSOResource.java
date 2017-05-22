@@ -10,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Base64;
+import java.util.Map;
 
 /**
  * Resource fake SSO endpoint
@@ -21,11 +23,13 @@ import java.util.Base64;
 @Profile(ProfileConstants.BOUCHON)
 public class FakeSSOResource {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @GetMapping(ApiConstants.FAKE_SSO)
     @ResponseBody
-    public String me(@RequestHeader String authorization) {
+    public Map me(@RequestHeader String authorization) throws IOException {
         String token = StringUtils.substringAfter(authorization, SecurityConstants.BEARER_PREFIX);
-        return new String(Base64.getUrlDecoder().decode(token));
+        return objectMapper.readValue(Base64.getUrlDecoder().decode(token), Map.class);
     }
 
     /**
@@ -46,7 +50,6 @@ public class FakeSSOResource {
     @GetMapping(ApiConstants.AUTHENTICATION + ApiConstants.TOKENS)
     @ResponseBody
     public String createAccessToken(@RequestParam String idsso, @RequestParam String firstName, @RequestParam String lastName) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
         ImmutableMap user = ImmutableMap.builder()
                 .put("id", idsso)
                 .put("firstName", firstName)

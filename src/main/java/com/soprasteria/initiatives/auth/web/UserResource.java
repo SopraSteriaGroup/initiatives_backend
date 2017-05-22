@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.validation.Valid;
-
 /**
  * Resource publishing {@link User} entity
  *
@@ -34,13 +32,6 @@ public class UserResource {
     @GetMapping("/{userId}")
     public Mono<User> find(@PathVariable String userId) {
         return userService.findById(userId);
-    }
-    
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public Mono<User> create(@RequestBody @Valid User user) {
-        return userService.create(user);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

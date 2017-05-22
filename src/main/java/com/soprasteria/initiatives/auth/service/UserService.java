@@ -47,14 +47,6 @@ public class UserService {
                 .switchIfEmpty(errorMono);
     }
 
-
-    @Transactional
-    public Mono<User> create(User user) {
-        return checkUsernameAvailable(user)
-                .then(userRepository.save(user))
-                .doOnNext(x -> LOGGER.info("Creating new user : {}", user));
-    }
-
     @Transactional
     public Mono<Void> delete(String id) {
         return findById(id).flatMap(userRepository::delete);
@@ -69,11 +61,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Flux<Authority> findAuthoritiesByUsername(String username) {
+    public Mono<User> findByUsernameIgnoreCase(String username) {
         return userRepository.findByUsernameIgnoreCase(username)
-                .flatMapIterable(user -> {
-                    LOGGER.debug("Searching authorities for user : {}", user);
-                    return user.getAuthorities();
+                .map(x -> {
+                    LOGGER.debug("Searching user for username : '{}'", username);
+                    return x;
                 });
     }
 
@@ -122,11 +114,4 @@ public class UserService {
                 .map(e -> Mono.empty())
                 .orElse(error);
     }
-
-    private Mono<Void> checkUsernameAvailable(User user) {
-        Mono<Void> error = Mono.error(new ValidationException(String.format("Username '%s' is already used", user.getUsername())));
-        return userRepository.findByUsernameIgnoreCase(user.getUsername())
-                .flatMap(x -> error);
-    }
-
 }

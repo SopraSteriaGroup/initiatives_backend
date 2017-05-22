@@ -20,5 +20,7 @@ public interface UserRepository extends GenericRepository<User> {
 
     Flux<User> findByAuthorities(Authority authority);
 
+    Mono<User> findByIdSSO(String idSSO);
+
     Mono<User> findByUsernameAndTemporaryCode(String username, String codeTemporaire);
 }

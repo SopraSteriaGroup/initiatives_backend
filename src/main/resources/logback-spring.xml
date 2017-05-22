@@ -10,7 +10,7 @@
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
+            <level>INFO</level>
         </filter>
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
@@ -39,7 +39,7 @@
     <logger name="springfox" level="WARN"/>
     <logger name="org.springframework.context.annotation.ConfigurationClassPostProcessor" level="ERROR"/>
 
-    <root level="TRACE">
+    <root level="INFO">
         <appender-ref ref="console"/>
     </root>
 

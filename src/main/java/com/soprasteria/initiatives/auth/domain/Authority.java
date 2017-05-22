@@ -1,9 +1,8 @@
 package com.soprasteria.initiatives.auth.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -12,12 +11,11 @@ import java.util.Objects;
  * @author jntakpe
  * @author cegiraud
  */
+@Document
 public class Authority extends IdentifiableEntity {
 
     public static final String DEFAULT_AUTHORITY = "USER";
 
-    @NotNull
-    @Indexed(unique = true)
     private String name;
 
     public Authority() {
@@ -35,7 +33,7 @@ public class Authority extends IdentifiableEntity {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

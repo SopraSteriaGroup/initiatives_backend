@@ -1,7 +1,9 @@
 package com.soprasteria.initiatives.auth.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,20 +17,22 @@ import java.util.Set;
  * @author jntakpe
  * @author cegiraud
  */
+@Document
 public class User extends IdentifiableEntity {
 
+    @NotNull
     @Indexed(unique = true)
+    @Pattern(regexp = "^.*@soprasteria.com$")
     private String username;
 
     private String firstName;
 
     private String lastName;
 
-    @NotNull
-    @Pattern(regexp = "^.*@soprasteria.com$")
-    private String email;
-
+    @JsonIgnore
     private String temporaryCode;
+
+    private String idSSO;
 
     private Set<Authority> authorities = new HashSet<>();
 
@@ -56,20 +60,20 @@ public class User extends IdentifiableEntity {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getTemporaryCode() {
         return temporaryCode;
     }
 
     public void setTemporaryCode(String temporaryCode) {
         this.temporaryCode = temporaryCode;
+    }
+
+    public String getIdSSO() {
+        return idSSO;
+    }
+
+    public void setIdSSO(String idSSO) {
+        this.idSSO = idSSO;
     }
 
     public Set<Authority> getAuthorities() {
