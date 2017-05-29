@@ -7,12 +7,14 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
@@ -67,6 +69,13 @@ public class TokenService {
                 .header(HttpHeaders.AUTHORIZATION, OAuth2AccessToken.BEARER_TYPE + " " + accessToken)
                 .exchange()
                 .flatMap(resp -> resp.bodyToMono(Map.class))
+                .flatMap(body -> {
+                    if(Integer.valueOf(401).equals(body.get("status"))){
+                        return Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED, body.get("message").toString()));
+                    } else {
+                        return Mono.just(body);
+                    }
+                })
                 .map(values -> new TokenService.UserSSO(values, keys))
                 .map(userSSO -> {
                     User user = new User();
