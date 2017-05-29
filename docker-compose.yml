@@ -16,3 +16,6 @@ services:
     links:
       - mongodb
       - smtp-server
+    environment:
+     - SPRING_PROFILES_ACTIVE=bouchon, docker
+
