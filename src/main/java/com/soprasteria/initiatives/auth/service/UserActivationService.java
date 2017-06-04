@@ -5,6 +5,7 @@ import com.soprasteria.initiatives.auth.config.AuthenticatedUser;
 import com.soprasteria.initiatives.auth.domain.User;
 import com.soprasteria.initiatives.auth.repository.UserRepository;
 import com.soprasteria.initiatives.auth.utils.SSOProvider;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -57,7 +58,7 @@ public class UserActivationService {
         return tokenService.callSSOProvider(accessToken, ssoProvider)
                 .map(user -> {
                     user.setUsername(email);
-                    user.setTemporaryCode(UUID.randomUUID().toString());
+                    user.setTemporaryCode(RandomStringUtils.randomAlphanumeric(5));
                     return user;
                 })
                 .flatMap(user -> checkUsernameAvailable(user).then(Mono.just(user)))
