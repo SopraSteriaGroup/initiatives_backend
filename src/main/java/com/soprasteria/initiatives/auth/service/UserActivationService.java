@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 import javax.validation.ValidationException;
-import java.util.UUID;
 
 /**
  * Service gérant les users
@@ -62,7 +61,13 @@ public class UserActivationService {
                     return user;
                 })
                 .flatMap(user -> checkUsernameAvailable(user).then(Mono.just(user)))
-                .flatMap(userRepository::insert)
+                .flatMap(user -> userRepository.findByIdSSO(user.getIdSSO())
+                        .map(user1 -> {
+                            user.setId(user1.getId());
+                            return user;
+                        })
+                        .defaultIfEmpty(user))
+                .flatMap(userRepository::save)
                 .flatMap(user -> sendMail(user).then(Mono.just(user)))
                 .flatMap(user -> tokenService.authorize(user.getUsername()));
     }
@@ -121,6 +126,7 @@ public class UserActivationService {
     private Mono<Void> checkUsernameAvailable(User user) {
         Mono<Void> error = Mono.error(new ValidationException(String.format("Username '%s' is already used", user.getUsername())));
         return userRepository.findByUsernameIgnoreCase(user.getUsername())
+                .filter(userFound -> !userFound.getIdSSO().equals(user.getIdSSO()))
                 .flatMap(x -> error);
     }
 }
